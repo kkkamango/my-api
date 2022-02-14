@@ -34,7 +34,7 @@ public class BoardController {
         return boardService.getBoard(id);
     }
 
-    @PostMapping("board")
+    @PostMapping("/board")
     public Board saveBoard(@RequestBody Board board){
 
         log.info("saveBoard requestBody = {}", board);
