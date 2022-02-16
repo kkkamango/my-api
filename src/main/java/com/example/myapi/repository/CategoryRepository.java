@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
-    List<Category> findByDelYnNot(String delYn);
+    List<Category> findByDelYnNotOrderBySortAscModifiedDateDesc(String delYn);
 
     Optional<Category> findByIdAndDelYn(Integer id, String delYn);
 }

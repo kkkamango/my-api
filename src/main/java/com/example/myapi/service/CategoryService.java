@@ -20,7 +20,7 @@ public class CategoryService {
     }
 
     public List<Category> getCategoryList() {
-        return categoryRepository.findByDelYnNot("Y");
+        return categoryRepository.findByDelYnNotOrderBySortAscModifiedDateDesc("Y");
     }
 
     public Category getCategory(Integer id){
