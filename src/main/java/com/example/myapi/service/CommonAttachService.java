@@ -21,9 +21,12 @@ public class CommonAttachService {
 
     private CommonAttachRepository commonAttachRepository;
 
+    private FileUploadUtil fileUploadUtil;
+
     @Autowired
-    public CommonAttachService(CommonAttachRepository commonAttachRepository) {
+    public CommonAttachService(CommonAttachRepository commonAttachRepository, FileUploadUtil fileUploadUtil) {
         this.commonAttachRepository = commonAttachRepository;
+        this.fileUploadUtil = fileUploadUtil;
     }
 
     public CommonAttach getCommonAttach(Integer id){
@@ -37,7 +40,7 @@ public class CommonAttachService {
     @Transactional
     public CommonAttach save(CommonAttach attach) {
         log.info("파일을 업로드 합니다. attach = {}", attach);
-        CommonAttach uploadFile = FileUploadUtil.upload(attach.getFile(), attach.getType());
+        CommonAttach uploadFile = fileUploadUtil.upload(attach.getFile(), attach.getType());
 
         if (uploadFile == null){
 //            throw new FileNotFoundException("파일이 존재하지 않습니다.");
