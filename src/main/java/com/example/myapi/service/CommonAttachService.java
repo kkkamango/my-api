@@ -21,11 +21,14 @@ public class CommonAttachService {
 
     private CommonAttachRepository commonAttachRepository;
 
+    private BoardRepository boardRepository;
+
     private FileUploadUtil fileUploadUtil;
 
     @Autowired
-    public CommonAttachService(CommonAttachRepository commonAttachRepository, FileUploadUtil fileUploadUtil) {
+    public CommonAttachService(CommonAttachRepository commonAttachRepository, BoardRepository boardRepository, FileUploadUtil fileUploadUtil) {
         this.commonAttachRepository = commonAttachRepository;
+        this.boardRepository = boardRepository;
         this.fileUploadUtil = fileUploadUtil;
     }
 
@@ -52,15 +55,33 @@ public class CommonAttachService {
         log.info("DB에 저장 합니다. uploadFile = {}", uploadFile);
         CommonAttach savedAttach = commonAttachRepository.save(uploadFile);
 
-        this.updateParent(savedAttach);
+        try {
+            this.updateParent(savedAttach);
+        } catch (Exception e) {
+            log.error(e.getMessage());
+            savedAttach.setDelYn("Y");
+            log.info("DB에 삭제 합니다. savedAttach = {}", savedAttach);
+            commonAttachRepository.save(savedAttach);
+            return null;
+        }
         return savedAttach;
     }
 
-    private void updateParent(CommonAttach attach) {
+    private void updateParent(CommonAttach attach) throws Exception {
 
         switch (attach.getType()){
             case BOARD_IMG_MAIN:
+                Optional<Board> boardOptional = boardRepository.findByIdAndDelYn(attach.getParentId(), "N");
 
+                if(boardOptional.isPresent()) {
+
+                    Board board = boardOptional.get();
+                    board.setImgSrcMainId(attach.getId());
+
+                    boardRepository.save(board);
+                } else {
+                    throw new Exception("데이터가 없습니다.");
+                }
             break;
         }
     }
