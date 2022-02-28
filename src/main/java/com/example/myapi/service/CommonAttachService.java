@@ -69,21 +69,21 @@ public class CommonAttachService {
 
     private void updateParent(CommonAttach attach) throws Exception {
 
-        switch (attach.getType()){
-            case BOARD_IMG_MAIN:
-                Optional<Board> boardOptional = boardRepository.findByIdAndDelYn(attach.getParentId(), "N");
-
-                if(boardOptional.isPresent()) {
-
-                    Board board = boardOptional.get();
-                    board.setImgSrcMainId(attach.getId());
-
-                    boardRepository.save(board);
-                } else {
-                    throw new Exception("데이터가 없습니다.");
-                }
-            break;
-        }
+//        switch (attach.getType()){
+//            case BOARD_IMG_MAIN:
+//                Optional<Board> boardOptional = boardRepository.findByIdAndDelYn(attach.getParentId(), "N");
+//
+//                if(boardOptional.isPresent()) {
+//
+//                    Board board = boardOptional.get();
+////                    board.setImgSrcMainId(attach.getId());
+//
+//                    boardRepository.save(board);
+//                } else {
+//                    throw new Exception("데이터가 없습니다.");
+//                }
+//            break;
+//        }
     }
 
     public List<CommonAttach> saveAll(List<CommonAttach> attachList){

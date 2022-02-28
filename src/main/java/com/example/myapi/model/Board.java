@@ -24,17 +24,14 @@ public class Board extends BaseEntity{
     private Integer amount; // 금액(VAT포함) - 최소 5,000원 이상
     private String term; // 작업기간 0일 (TODO CommonTermType 1d, 2d,...,1m, 1y)
     private Integer revisionNo; // 수정횟수
+    // @Lob @Basic(fetch = FetchType.LAZY)
     private String revisionNoti; // 수정 및 재진행 안내
 
-//    @OneToOne
-//    @JoinColumn(name="imgSrcMainId")
-//    private CommonAttach imgSrcMain; // 메인 이미지 -> 가이드 라인 type=BOARD_IMG_MAIN
-    private Integer imgSrcMainId;
-    @OneToMany
-    @JoinColumn(name = "id")
+    @OneToOne // board.img_src_main_id 컬럼 생성
+    private CommonAttach imgSrcMain; // 메인 이미지 -> 가이드 라인 type=BOARD_IMG_MAIN
+    @OneToMany // board_img_src_detail 매핑테이블 생성
     private Collection<CommonAttach> imgSrcDetail; // 상세 이미지 3~9개 type=BOARD_IMG_DETAIL
-    @OneToMany
-    @JoinColumn(name = "id", nullable = true)
+    @OneToMany // board_vedio_src 매핑테이블 생성
     private Collection<CommonAttach> vedioSrc; // 동영상 ~6개 type=BOARD_VEDIO
     // 작업전 요청 사항
 
