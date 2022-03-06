@@ -55,15 +55,15 @@ public class CommonAttachService {
         log.info("DB에 저장 합니다. uploadFile = {}", uploadFile);
         CommonAttach savedAttach = commonAttachRepository.save(uploadFile);
 
-        try {
-            this.updateParent(savedAttach);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-            savedAttach.setDelYn("Y");
-            log.info("DB에 삭제 합니다. savedAttach = {}", savedAttach);
-            commonAttachRepository.save(savedAttach);
-            return null;
-        }
+//        try {
+//            this.updateParent(savedAttach);
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//            savedAttach.setDelYn("Y");
+//            log.info("DB에 삭제 합니다. savedAttach = {}", savedAttach);
+//            commonAttachRepository.save(savedAttach);
+//            return null;
+//        }
         return savedAttach;
     }
 
@@ -76,7 +76,7 @@ public class CommonAttachService {
 //                if(boardOptional.isPresent()) {
 //
 //                    Board board = boardOptional.get();
-////                    board.setImgSrcMainId(attach.getId());
+//                    board.setImgSrcMainId(attach.getId());
 //
 //                    boardRepository.save(board);
 //                } else {

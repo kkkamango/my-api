@@ -7,5 +7,5 @@ public enum CommonAttachType {
     CATEGORY_MAIN,
     BOARD_IMG_MAIN,
     BOARD_IMG_DETAIL,
-    BOARD_VEDIO
+    BOARD_VIDEO
 }

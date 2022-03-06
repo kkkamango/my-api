@@ -82,7 +82,7 @@ class BoardRepositoryTest {
         board.setImgSrcDetail(detailList);
         log.info("DETAIL 파일 저장 {}", board);
 
-        boardRepository.save(board);
+//        boardRepository.save(board);
 
         List<CommonAttach> all = commonAttachRepository.findAll();
         log.info("저장된 CommonAttach 조회 {}", all);

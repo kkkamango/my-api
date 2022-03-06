@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.Collection;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Board extends BaseEntity{
+public class Board extends BaseEntity implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,12 +28,15 @@ public class Board extends BaseEntity{
     // @Lob @Basic(fetch = FetchType.LAZY)
     private String revisionNoti; // 수정 및 재진행 안내
 
-    @OneToOne // board.img_src_main_id 컬럼 생성
+    @OneToOne(fetch = FetchType.EAGER)
+    // board.img_src_main_id 컬럼 생성
     private CommonAttach imgSrcMain; // 메인 이미지 -> 가이드 라인 type=BOARD_IMG_MAIN
-    @OneToMany // board_img_src_detail 매핑테이블 생성
+    @OneToMany(fetch = FetchType.LAZY)
+    // board_img_src_detail 매핑테이블 생성
     private Collection<CommonAttach> imgSrcDetail; // 상세 이미지 3~9개 type=BOARD_IMG_DETAIL
-    @OneToMany // board_vedio_src 매핑테이블 생성
-    private Collection<CommonAttach> vedioSrc; // 동영상 ~6개 type=BOARD_VEDIO
+    @OneToMany(fetch = FetchType.LAZY)
+    // board_video_src 매핑테이블 생성
+    private Collection<CommonAttach> videoSrc; // 동영상 ~6개 type=BOARD_VIDEO
     // 작업전 요청 사항
 
 

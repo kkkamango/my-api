@@ -31,7 +31,14 @@ public class BoardController {
 
     @GetMapping("/board/{id}")
     public Board getBoard(@PathVariable("id") Integer id){
-        return boardService.getBoard(id);
+        log.info("getBoard id = {}", id);
+        Board board = boardService.getBoard(id);
+        log.info("getBoard board = {}", board);
+        log.info("getBoard imgSrcMain = {}", board.getImgSrcMain());
+        log.info("getBoard imgSrcDetail = {}", board.getImgSrcDetail());
+        log.info("getBoard videoSrc = {}", board.getVideoSrc());
+
+        return board;
     }
 
     @PostMapping("/board")
